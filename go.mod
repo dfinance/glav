@@ -1,4 +1,4 @@
-module libra_access_vector
+module go_access_vector
 
 go 1.14
 

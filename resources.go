@@ -1,7 +1,7 @@
 package libra_access_vector
 
 const CurrencyModule = "Currency"
-const CurrencyPairStruct = "Pair"
+const PriceStruct = "Price"
 
 const BlockModule = "Block"
 const BlockStruct = "BlockMetadata"
@@ -16,7 +16,7 @@ func OracleAccessVector(first string, second string) []byte {
 		Struct(Tag(CoreCodeAddress(), CurrencyModule, first, empty[0:])),
 		Struct(Tag(CoreCodeAddress(), CurrencyModule, second, empty[0:])),
 	}
-	tag := Tag(CoreCodeAddress(), CurrencyModule, CurrencyPairStruct, params[0:])
+	tag := Tag(CoreCodeAddress(), CurrencyModule, PriceStruct, params[0:])
 	return tag.AccessVector()
 }
 
