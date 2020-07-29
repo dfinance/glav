@@ -7,8 +7,14 @@ import (
 )
 
 func TestOraclePath(t *testing.T) {
-	access := OracleAccessVector("USD", "BTC")
-	expected, _ := hex.DecodeString("0148b6fd935bea9299b852c31f00b4bcf6e919dc6712f4bf36d5b3e9e4d4fce0d2")
+	access := OracleAccessVector("DFI", "BTC")
+	expected, _ := hex.DecodeString("01b1a724361d17c9866b12e199ecdb17eb5cb16630b647bbc997fe65362920e3bb")
+	if !reflect.DeepEqual(access, expected) {
+		t.Errorf("Expected %X path. Actual: %X", expected, access)
+	}
+
+	access = OracleAccessVector("BTC", "ETH")
+	expected, _ = hex.DecodeString("01a7183ec0c4d32fd9a2705e1e6844035c5238598bf45167742e9db3735af96cc1")
 	if !reflect.DeepEqual(access, expected) {
 		t.Errorf("Expected %X path. Actual: %X", expected, access)
 	}

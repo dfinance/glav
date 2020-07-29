@@ -1,6 +1,11 @@
 package libra_access_vector
 
-const CurrencyModule = "Currency"
+import "strings"
+
+const DfiModule = "DFI"
+const DfiStruct = "T"
+
+const CoinsModule = "Coins"
 const PriceStruct = "Price"
 
 const BlockModule = "Block"
@@ -10,13 +15,11 @@ const TimeModule = "Time"
 const TimeStruct = "CurrentTimestamp"
 
 func OracleAccessVector(first string, second string) []byte {
-	empty := [0]TypeParam{}
-
 	params := [2]TypeParam{
-		Struct(Tag(CoreCodeAddress(), CurrencyModule, first, empty[0:])),
-		Struct(Tag(CoreCodeAddress(), CurrencyModule, second, empty[0:])),
+		currencyType(first),
+		currencyType(second),
 	}
-	tag := Tag(CoreCodeAddress(), CurrencyModule, PriceStruct, params[0:])
+	tag := Tag(CoreCodeAddress(), CoinsModule, PriceStruct, params[0:])
 	return tag.AccessVector()
 }
 
@@ -30,4 +33,15 @@ func TimeMetadataVector() []byte {
 	empty := [0]TypeParam{}
 	tag := Tag(CoreCodeAddress(), TimeModule, TimeStruct, empty[0:])
 	return tag.AccessVector()
+}
+
+func currencyType(curr string) TypeParam {
+	empty := [0]TypeParam{}
+
+	curr = strings.ToUpper(curr)
+	if curr == "DFI" {
+		return Struct(Tag(CoreCodeAddress(), DfiModule, DfiStruct, empty[0:]))
+	} else {
+		return Struct(Tag(CoreCodeAddress(), CoinsModule, curr, empty[0:]))
+	}
 }
