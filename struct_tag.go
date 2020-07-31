@@ -8,6 +8,7 @@ import (
 
 const (
 	ResourceTag = 0x1
+	ModuleTag   = 0x0
 )
 
 type StructTag struct {
@@ -21,7 +22,7 @@ func (tag StructTag) AccessVector() []byte {
 	h := sha3.New256()
 	access := make([]byte, 33)
 	access[0] = ResourceTag
-	h.Write(salt[:])
+	h.Write(structTagSalt[:])
 	var buffer bytes.Buffer
 	tag.marshal(&buffer)
 	h.Write(buffer.Bytes())
