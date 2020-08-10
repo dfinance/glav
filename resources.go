@@ -3,17 +3,19 @@ package glav
 import "strings"
 
 const (
-	DfiModule = "DFI"
-	DfiStruct = "T"
+	AccountModule  = "Account"
+	BlockModule    = "Block"
+	CoinsModule    = "Coins"
+	DfiModule      = "DFI"
+	DfinanceModule = "Dfinance"
+	TimeModule     = "Time"
 
-	CoinsModule = "Coins"
-	PriceStruct = "Price"
-
-	BlockModule = "Block"
-	BlockStruct = "BlockMetadata"
-
-	TimeModule = "Time"
-	TimeStruct = "CurrentTimestamp"
+	BalanceStruct = "Balance"
+	BlockStruct   = "BlockMetadata"
+	DfiStruct     = "T"
+	PriceStruct   = "Price"
+	TimeStruct    = "CurrentTimestamp"
+	InfoStruct    = "Info"
 )
 
 func OracleAccessVector(first string, second string) []byte {
@@ -36,6 +38,18 @@ func BlockMetadataVector() []byte {
 func TimeMetadataVector() []byte {
 	empty := [0]TypeParam{}
 	tag := NewStructTag(codeCoreAddress, TimeModule, TimeStruct, empty[0:])
+
+	return tag.AccessVector()
+}
+
+func BalanceVector(curr string) []byte {
+	tag := NewStructTag(codeCoreAddress, AccountModule, BalanceStruct, []TypeParam{currencyType(curr)})
+
+	return tag.AccessVector()
+}
+
+func CurrencyInfoVector(curr string) []byte {
+	tag := NewStructTag(codeCoreAddress, DfinanceModule, InfoStruct, []TypeParam{currencyType(curr)})
 
 	return tag.AccessVector()
 }
