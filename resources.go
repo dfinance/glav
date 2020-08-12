@@ -6,13 +6,13 @@ const (
 	AccountModule  = "Account"
 	BlockModule    = "Block"
 	CoinsModule    = "Coins"
-	DfiModule      = "DFI"
+	XfiModule      = "XFI"
 	DfinanceModule = "Dfinance"
 	TimeModule     = "Time"
 
 	BalanceStruct = "Balance"
 	BlockStruct   = "BlockMetadata"
-	DfiStruct     = "T"
+	XfiStruct     = "T"
 	PriceStruct   = "Price"
 	TimeStruct    = "CurrentTimestamp"
 	InfoStruct    = "Info"
@@ -58,8 +58,8 @@ func currencyType(curr string) TypeParam {
 	empty := [0]TypeParam{}
 
 	curr = strings.ToUpper(curr)
-	if curr == "DFI" {
-		return NewStructTypeParam(NewStructTag(codeCoreAddress, DfiModule, DfiStruct, empty[0:]))
+	if curr == "XFI" {
+		return NewStructTypeParam(NewStructTag(codeCoreAddress, XfiModule, XfiStruct, empty[0:]))
 	}
 
 	return NewStructTypeParam(NewStructTag(codeCoreAddress, CoinsModule, curr, empty[0:]))
